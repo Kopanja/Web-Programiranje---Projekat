@@ -7,7 +7,22 @@ public class VMCatagory {
 	private int ram;
 	private int gpuCores;
 	
+	public VMCatagory() {
+		
+	}
 	
+	
+	
+	public VMCatagory(String name, int numOfCores, int ram, int gpuCores) {
+		super();
+		this.name = name;
+		this.numOfCores = numOfCores;
+		this.ram = ram;
+		this.gpuCores = gpuCores;
+	}
+
+
+
 	public String getName() {
 		return name;
 	}

@@ -1,10 +1,10 @@
 const Home = {template: '<home></home>'}
-
+const Proba = {template: '<proba></proba>'}
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
 	    { path: '/', component: Home},
-	    //{ path: '/sc', component: ShoppingCart }
+	    { path: '/nesto', component: Proba }
 	  ]
 });
 

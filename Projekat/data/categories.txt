@@ -1,0 +1,1 @@
+[{"name":"Standard-2","numOfCores":2,"ram":8,"gpuCores":0},{"name":"GPU4-Standard-4","numOfCores":4,"ram":16,"gpuCores":4},{"name":"Highmem-4","numOfCores":4,"ram":32,"gpuCores":0},{"name":"GPU-4-Highmem-8","numOfCores":8,"ram":64,"gpuCores":4},{"name":"GPU-8-Highcpu-8","numOfCores":8,"ram":8,"gpuCores":8},{"name":"Highcpu-16","numOfCores":16,"ram":16,"gpuCores":0}]
