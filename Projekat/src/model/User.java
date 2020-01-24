@@ -8,8 +8,8 @@ public class User {
 	
 	private String email;
 	private String password;
-	private String firtName;
-	private String LastName;
+	private String firstName;
+	private String lastName;
 	private String organisation;
 	private Role role;
 	
@@ -23,8 +23,8 @@ public class User {
 		super();
 		this.email = email;
 		this.password = password;
-		this.firtName = firtName;
-		LastName = lastName;
+		this.firstName = firtName;
+		this.lastName = lastName;
 		this.role = role;
 	}
 
@@ -34,8 +34,8 @@ public class User {
 		super();
 		this.email = email;
 		this.password = password;
-		this.firtName = firtName;
-		LastName = lastName;
+		this.firstName = firtName;
+		this.lastName = lastName;
 		this.organisation = organisation;
 		this.role = role;
 	}
@@ -57,19 +57,19 @@ public class User {
 	}
 
 	public String getFirtName() {
-		return firtName;
+		return firstName;
 	}
 
 	public void setFirtName(String firtName) {
-		this.firtName = firtName;
+		this.firstName = firtName;
 	}
 
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 
 	public String getOrganisation() {

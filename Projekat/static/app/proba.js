@@ -7,6 +7,9 @@ Vue.component("proba", {
 template: `
 <div>
 <input type = "checkbox" v-on:change="addTodo">
+<p>
+	<a href="#/nesto">Probaaaaaa</a>
+</p>
 </div>
 `,
 //Da vidim da li menja
