@@ -1,6 +1,7 @@
 package rest;
 
 import static spark.Spark.get;
+import static spark.Spark.delete;
 import static spark.Spark.port;
 import static spark.Spark.post;
 import static spark.Spark.staticFiles;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import model.Organisation;
+import model.VM;
 import repositories.DiskRepository;
 import repositories.OrgRepository;
 import repositories.UserRepository;
@@ -56,10 +58,7 @@ public class SparkMain {
 			return g.toJson(orgRepo.getAllOrgs(g));
 		});
 		
-		get("/vms", (req,res) -> {
-			res.type("application/json");
-			return g.toJson(vmRepo.getAllVMs(g));
-		});
+		
 		
 		get("/cats", (req,res) -> {
 			res.type("application/json");
@@ -71,12 +70,33 @@ public class SparkMain {
 			return g.toJson(diskRepo.getAllDisks(g));
 		});
 		
-		post("/add", (req, res) -> {
+		
+			
+	
+		
+		get("/vms", (req,res) -> {
 			res.type("application/json");
+			return g.toJson(vmRepo.getAllVMs(g));
+		});
+		
+		
+		post("/vms/add", (req, res) -> {
+			res.type("application/json");
+			VM newVm;
 			String payload = req.body();
-			//users = g.fromJson(payload, new TypeToken<ArrayList<User>>(){}.getType());
+			newVm = g.fromJson(payload, VM.class);
+			vmRepo.getVms().add(newVm);
+			vmRepo.saveToFile(g);
 			return ("OK");
 		});
+		
+		delete("/vms/delete/:name", (req, res) -> {
+			String name = req.params("name");
+			vmRepo.deleteVm(name);
+			vmRepo.saveToFile(g);
+			return ("OK");
+		});
+	
 	}
 	
 
