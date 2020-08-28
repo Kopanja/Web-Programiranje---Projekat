@@ -4,6 +4,8 @@ import static spark.Spark.get;
 import static spark.Spark.delete;
 import static spark.Spark.port;
 import static spark.Spark.post;
+import static spark.Spark.after;
+
 import static spark.Spark.staticFiles;
 
 import java.io.BufferedWriter;
@@ -21,6 +23,7 @@ import repositories.OrgRepository;
 import repositories.UserRepository;
 import repositories.VMCategoryRepository;
 import repositories.VMRepository;
+import spark.Filter;
 
 public class SparkMain {
 
@@ -37,15 +40,30 @@ public class SparkMain {
 	private static Organisation org3 = new Organisation("ORG-3", "Najlepsa organizacija", "");
 	
 	public static void main(String[] args) throws IOException {
-
 		
-		port(8080);
+		port(9003);
 		
 		
 		staticFiles.externalLocation(new File("./static").getCanonicalPath()); 
 		
+		after((Filter) (request, response) -> {
+            response.header("Access-Control-Allow-Origin", "*");
+            //response.header("Access-Control-Allow-Methods", "POST");
+        });
+		
 		get("/test", (req, res) -> {
+			System.out.println("test");
+			
 			return "Works";
+		});
+		
+		post("/post", (req, res) -> {
+			//res.type("application/json");
+			System.out.println("asasas");
+			//System.out.println("aaaaaaaaaaaaaa");
+			String payload = req.body();
+			System.out.println(payload);
+			return "OK";
 		});
 		
 		get("/users", (req,res) -> {
