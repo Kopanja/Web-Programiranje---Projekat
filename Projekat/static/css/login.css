@@ -1,0 +1,43 @@
+body {
+    margin: 0;
+    background-color: #ececec;
+    text-align: center;
+  }
+
+  .login {
+    font-family: 'Righteous', cursive;
+    color: #ececec;
+    font-size: 2.125rem;
+    padding: 10px 0 5px 0;
+    background-color: #222831;
+  }
+
+  .info {
+    padding: 20px 0 0 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #222831;
+  }
+
+  .padding {
+    margin: 10px 0 10px 0;
+  }
+
+  .myButton {
+    margin: 10px 0 10px 0;
+      background-color:#222831;
+      border-radius: 42px;
+    display: inline-block;
+      cursor:pointer;
+      color:#ececec;
+    font-family: 'Righteous', cursive;
+      font-size:17px;
+      padding:10px 31px;
+      text-decoration:none;
+  }
+  .myButton:hover {
+      background-color:#30475e;
+  }
+  .myButton:active {
+      position:relative;
+      top:1px;
+  }

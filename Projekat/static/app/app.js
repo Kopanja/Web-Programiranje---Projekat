@@ -1,10 +1,11 @@
-const Home = {template: '<home></home>'}
-const Proba = {template: '<proba></proba>'}
+const Login = {template: '<login></login>'}
+const Vms = {template: '<vms></vms>'}
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
-	    { path: '/', component: Home},
-	    { path: '/nesto', component: Proba }
+		{ path: '/', component: Login},
+		{path: '/vms', component: Vms},
+
 	  ]
 });
 

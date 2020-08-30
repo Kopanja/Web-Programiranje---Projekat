@@ -46,10 +46,7 @@ public class SparkMain {
 		
 		staticFiles.externalLocation(new File("./static").getCanonicalPath()); 
 		
-		after((Filter) (request, response) -> {
-            response.header("Access-Control-Allow-Origin", "*");
-            //response.header("Access-Control-Allow-Methods", "POST");
-        });
+	
 		
 		get("/test", (req, res) -> {
 			System.out.println("test");
@@ -93,7 +90,12 @@ public class SparkMain {
 	
 		
 		get("/vms", (req,res) -> {
+			System.out.println("AAAAAAAAAAAAAAAaa");
 			res.type("application/json");
+			for(VM vm : vmRepo.getAllVMs(g)) {
+				System.out.println(vm.getName());
+			}
+			System.out.println(g.toJson(vmRepo.getAllVMs(g)));
 			return g.toJson(vmRepo.getAllVMs(g));
 		});
 		
