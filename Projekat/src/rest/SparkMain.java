@@ -105,6 +105,8 @@ public class SparkMain {
 			VM newVm;
 			String payload = req.body();
 			newVm = g.fromJson(payload, VM.class);
+			System.out.println(payload);
+			System.out.println(newVm.getName());
 			vmRepo.getVms().add(newVm);
 			vmRepo.saveToFile(g);
 			return ("OK");
@@ -112,6 +114,7 @@ public class SparkMain {
 		
 		delete("/vms/delete/:name", (req, res) -> {
 			String name = req.params("name");
+			System.out.println("NAMEEE" + name);
 			vmRepo.deleteVm(name);
 			vmRepo.saveToFile(g);
 			return ("OK");

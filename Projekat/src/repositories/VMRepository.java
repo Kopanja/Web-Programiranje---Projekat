@@ -47,9 +47,15 @@ public class VMRepository {
 		int index = 0;
 		
 		for(VM vm : this.vms) {
-			if(vm.getName() == name) {
+			System.out.println("------------------------");
+			System.out.println("Vm name: " + vm.getName());
+			System.out.println("name: " + name);
+			System.out.println("index: " + index);
+			System.out.println("Counter: " + counter);
+			System.out.println("------------------------");
+			if(vm.getName().equals(name)) {
 				index = counter;
-				this.vms.remove(vm);
+				//this.vms.remove(vm);
 			}
 			counter++;
 		}

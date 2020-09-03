@@ -16,6 +16,7 @@ Vue.component("vms", {
       <th scope="col">Category</th>
       <th scope="col">Num Of Cores</th>
       <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -25,12 +26,13 @@ Vue.component("vms", {
       <td>{{vm.catagory}}</td>
       <td>{{vm.numOfCores}}</td>
       <td><button type="button" class="btn btn-dark" v-on:click="selectVm(vm)" onclick="location.href = '#/vm-item';">More</button></td>
+      <td><button type="button" class="btn btn-dark" v-on:click="deleteVm(vm)">Delete</button></td>
     </tr>
 
   </tbody>
 </table>
 
-{{vms}}
+<button type="button" class="btn btn-dark"  onclick="location.href = '#/add-vm';">Add New VM</button>
     </div>
 
 
@@ -49,7 +51,15 @@ mounted(){
 	methods: {
         selectVm: function(vm){
             this.$root.$emit('messageFromParent', vm);
+        },
+        deleteVm: function(vm){
+          console.log("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
+          var path = "http://localhost:9003/vms/delete/";
+          console.log(path);
+          axios.delete(path.concat(vm.name)).then(resp => {console.log(resp.data)});
         }
+
+
 
         }
 
