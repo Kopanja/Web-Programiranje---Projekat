@@ -7,6 +7,7 @@ Vue.component("vms", {
     template: `
 
     <div>
+    <navbar></navbar>
     <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -14,14 +15,16 @@ Vue.component("vms", {
       <th scope="col">Name</th>
       <th scope="col">Category</th>
       <th scope="col">Num Of Cores</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr v-for="vm in vms">
-      <th scope="row">1</th>
+    <tr v-for="(vm, index) in vms">
+      <th scope="row">{{index + 1}}</th>
       <td>{{vm.name}}</td>
       <td>{{vm.catagory}}</td>
       <td>{{vm.numOfCores}}</td>
+      <td><button type="button" class="btn btn-dark" v-on:click="selectVm(vm)" onclick="location.href = '#/vm-item';">More</button></td>
     </tr>
 
   </tbody>
@@ -44,7 +47,9 @@ mounted(){
 
 },
 	methods: {
-
+        selectVm: function(vm){
+            this.$root.$emit('messageFromParent', vm);
+        }
 
         }
 

@@ -8,6 +8,7 @@ Vue.component("login", {
     template: `
 
     <div>
+    <navbar></navbar>
     <div class="login">
         <p>Log In</p>
     </div>

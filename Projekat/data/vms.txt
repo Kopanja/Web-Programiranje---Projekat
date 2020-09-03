@@ -1,1 +1,1 @@
-[{"name":"VM-10","catagory":"GPU-4-Highmem-8","numOfCores":8,"ram":64,"gpuCores":4,"disks":["D2-HDD-1024"]}]
+[{"name":"VM-10","catagory":"GPU-4-Highmem-8","numOfCores":8,"ram":64,"gpuCores":4,"disks":["D2-HDD-1024"]}, {"name":"VM-10","catagory":"GPU-4-Highmem-8","numOfCores":8,"ram":64,"gpuCores":4,"disks":["D2-HDD-1024"]}, {"name":"VM-11","catagory":"GPU-4-Highmem-8","numOfCores":8,"ram":64,"gpuCores":4,"disks":["D2-HDD-1024"]}]
