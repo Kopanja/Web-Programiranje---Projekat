@@ -1,1 +1,1 @@
-[{"name":"ORG-1","description":"Jako lepa organizacija","logo":""},{"name":"ORG-2","description":"Jos lepsa organizacija","logo":""},{"name":"ORG-3","description":"Najlepsa organizacija","logo":""}]
+[{"name":"ORG-3","description":"Najlepsa organizacija","logo":""}]

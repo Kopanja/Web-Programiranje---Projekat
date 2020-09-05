@@ -28,8 +28,7 @@ Vue.component("add-vm", {
       </div>
       </div>
   </form>
-  <button type="button" class="btn btn-dark" v-on:click="addVm(vm)">Add</button>
-  <button type="button" class="btn btn-dark"  onclick="location.href = '#/vms';">Return</button>
+  <button type="button" class="btn btn-dark" v-on:click="addVm(vm)" onclick="location.href = '#/vms';">Add</button>
 
 </div>
 `	,

@@ -5,7 +5,7 @@ Vue.component("profile", {
 		    }
 	},
     template: `
-
+4fr
 
 `	,
 mounted(){

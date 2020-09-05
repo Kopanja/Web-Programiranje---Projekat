@@ -1,8 +1,10 @@
 package repositories;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import model.Organisation;
+import model.VM;
 
 public class OrgRepository {
 
@@ -38,5 +41,28 @@ public class OrgRepository {
 		this.orgs = orgs;
 	}
 	
+	public void deleteOrg(String name) {
+		System.out.println(name);
+		int counter = 0;
+		int index = 0;
+		
+		for(Organisation org : this.orgs) {
+			
+			if(org.getName().equals(name)) {
+				index = counter;
+				//this.vms.remove(vm);
+			}
+			counter++;
+		}
+		this.orgs.remove(index);
+		System.out.println("promena");
+	}
+	
+	public void saveToFile(Gson g) throws IOException {
+	    BufferedWriter writer = new BufferedWriter(new FileWriter(".\\data\\organisations.txt"));
+	    writer.write(g.toJson(this.orgs));
+	     
+	    writer.close();
+	}
 	
 }

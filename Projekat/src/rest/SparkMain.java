@@ -17,6 +17,7 @@ import java.io.IOException;
 import com.google.gson.Gson;
 
 import model.Organisation;
+import model.User;
 import model.VM;
 import repositories.DiskRepository;
 import repositories.OrgRepository;
@@ -112,11 +113,42 @@ public class SparkMain {
 			return ("OK");
 		});
 		
+		post("/users/add", (req, res) -> {
+			res.type("application/json");
+			User user;
+			String payload = req.body();
+			user = g.fromJson(payload, User.class);
+			System.out.println(payload);
+			System.out.println(user.getEmail());
+			userRepo.getUsers().add(user);
+			userRepo.saveToFile(g);
+			return ("OK");
+		});
+		
+		post("/orgs/add", (req, res) -> {
+			res.type("application/json");
+			Organisation org;
+			String payload = req.body();
+			org = g.fromJson(payload, Organisation.class);
+			System.out.println(payload);
+			System.out.println(org.getName());
+			orgRepo.getOrgs().add(org);
+			orgRepo.saveToFile(g);
+			return ("OK");
+		});
+		
 		delete("/vms/delete/:name", (req, res) -> {
 			String name = req.params("name");
 			System.out.println("NAMEEE" + name);
 			vmRepo.deleteVm(name);
 			vmRepo.saveToFile(g);
+			return ("OK");
+		});
+		delete("/orgs/delete/:name", (req, res) -> {
+			String name = req.params("name");
+			System.out.println("NAMEEE" + name);
+			orgRepo.deleteOrg(name);
+			orgRepo.saveToFile(g);
 			return ("OK");
 		});
 	
