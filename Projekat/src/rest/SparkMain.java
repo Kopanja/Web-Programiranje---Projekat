@@ -16,6 +16,7 @@ import java.io.IOException;
 
 import com.google.gson.Gson;
 
+import model.LoggInDTO;
 import model.Organisation;
 import model.User;
 import model.VM;
@@ -25,6 +26,8 @@ import repositories.UserRepository;
 import repositories.VMCategoryRepository;
 import repositories.VMRepository;
 import spark.Filter;
+import spark.Request;
+import spark.Session;
 
 public class SparkMain {
 
@@ -45,6 +48,7 @@ public class SparkMain {
 		port(9003);
 		
 		
+		
 		staticFiles.externalLocation(new File("./static").getCanonicalPath()); 
 		
 	
@@ -55,19 +59,40 @@ public class SparkMain {
 			return "Works";
 		});
 		
-		post("/post", (req, res) -> {
+		
+		post("/login", (req, res) -> {
+			
 			//res.type("application/json");
-			System.out.println("asasas");
-			//System.out.println("aaaaaaaaaaaaaa");
+			
+			userRepo.getAllUsers(g);
+			LoggInDTO logInDto;
 			String payload = req.body();
 			System.out.println(payload);
+			logInDto = g.fromJson(payload, LoggInDTO.class);
+			System.out.println(logInDto.getUsername());
+			User logedInUser = userRepo.loggin(logInDto);
+			System.out.println(logedInUser.getEmail());
+			Session ss = req.session(true);
+			ss.attribute("user", logedInUser);	
+			System.out.println("LOGIN");
+			
+			//return g.toJson(logedInUser);
 			return "OK";
-		});
+			});
 		
 		get("/users", (req,res) -> {
 			res.type("application/json");
 			return g.toJson(userRepo.getAllUsers(g));
 		});
+		
+		get("/loginUser", (req,res) -> {
+			res.type("application/json");
+			System.out.println("Trazim ulogovanog usera");
+			User user = getLoginUser(req);
+			System.out.println(user.getEmail());
+			return g.toJson(getLoginUser(req));
+		});
+		
 		
 		get("/orgs", (req,res) -> {
 			res.type("application/json");
@@ -91,12 +116,7 @@ public class SparkMain {
 	
 		
 		get("/vms", (req,res) -> {
-			System.out.println("AAAAAAAAAAAAAAAaa");
 			res.type("application/json");
-			for(VM vm : vmRepo.getAllVMs(g)) {
-				System.out.println(vm.getName());
-			}
-			System.out.println(g.toJson(vmRepo.getAllVMs(g)));
 			return g.toJson(vmRepo.getAllVMs(g));
 		});
 		
@@ -152,6 +172,15 @@ public class SparkMain {
 			return ("OK");
 		});
 	
+	}
+	
+	private static User getLoginUser(Request req) {
+		Session ss = req.session(true);
+		User user = ss.attribute("user"); 
+		if (user == null) {
+			System.out.println("User is not logged in");
+		}
+		return user;
 	}
 	
 

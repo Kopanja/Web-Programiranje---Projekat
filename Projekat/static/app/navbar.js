@@ -1,10 +1,10 @@
 Vue.component("navbar", {
-	data: function () {
-		    return {
-
-		    }
-	},
-    template: `
+  data: function () {
+    return {
+      user: null
+    }
+  },
+  template: `
 
     <div>
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
@@ -23,6 +23,9 @@ Vue.component("navbar", {
         </li>
         <li class="nav-item">
         <a class="nav-link" href="#/users">Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#/users">{{user.email}}</a>
       </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,20 +51,17 @@ Vue.component("navbar", {
 
 </div>
 `	,
-mounted(){
+  mounted() {
 
     console.log('AAAAAAAAAAAAAAAAA');
-    //console.log(this.vms);
+    console.log(this.user);
     //axios.post("http://localhost:9003/post", {username: this.username, password : this.password}).then(resp => {console.log(resp.data)});
-    //axios.get("http://localhost:9003/vms").then(resp => (this.vms = resp.data));
-    //console.log(this.vms);
+    axios.get("http://localhost:9003/loginUser").then(resp => (this.user = resp.data));
+
+    console.log(this.user);
+
+  },
 
 
-},
-	methods: {
 
-
-        }
-
-
-})
+  })

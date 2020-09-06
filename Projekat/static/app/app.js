@@ -12,7 +12,7 @@ const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
 		{ path: '/', component: Login},
-		{path: '/vms/', component: Vms},
+		{path: '/vms', component: Vms},
 		{path: '/profile', component: Profile},
 		{path: '/vm-item', component: VmItem},
 		{path: '/add-vm', component: AddVM},

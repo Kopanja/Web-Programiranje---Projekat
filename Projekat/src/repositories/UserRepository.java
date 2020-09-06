@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import model.LoggInDTO;
 import model.User;
 
 public class UserRepository {
@@ -30,6 +31,7 @@ public class UserRepository {
 
 		users = g.fromJson(stringData, new TypeToken<ArrayList<User>>() {
 		}.getType());
+		this.users = users;
 		return users;
 	}
 
@@ -46,6 +48,18 @@ public class UserRepository {
 	    writer.write(g.toJson(this.users));
 	     
 	    writer.close();
+	}
+	
+	public User loggin(LoggInDTO logginInfo) {
+		User loggedInUser = null;
+		for(User user : this.users) {
+			if(user.getEmail().equals(logginInfo.getUsername()) && user.getPassword().equals(logginInfo.getPassword())) {
+				loggedInUser = user;
+				
+			}
+		}
+		
+		return loggedInUser;
 	}
 	
 }

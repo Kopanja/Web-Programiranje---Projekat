@@ -2,13 +2,14 @@ Vue.component("login", {
 	data: function () {
 		    return {
               username: '',
-              password: ''
+              password: '',
+              user: null,
+              bol: false
 		    }
 	},
     template: `
 
     <div>
-    <navbar></navbar>
     <div class="login">
         <p>Log In</p>
     </div>
@@ -20,23 +21,42 @@ Vue.component("login", {
         <label class="padding" for="password">Password:</label>
         <input class="padding" type="password" name="password" v-model="password" value="">
         <br>
-        <button type="submit" @click="loginFunc" class="myButton" onclick="location.href = '#/vms';" >Submit</button>
+        <button type = "button" @click="loginFunc" class="myButton">Submit</button>
         </form>
+        <div v-if = "bol" class="alert alert-success">
+        <strong>Success!</strong> You should <a href="#/vms" class="alert-link">read this message</a>.
+        </div>
     </div>
 
 
 </div>
 `	,
-	methods: {
 
-        loginFunc: function(){
-            console.log(this.username);
-            //axios.post("http://localhost:9003/post", {username: this.username, password : this.password}).then(resp => {console.log(resp.data)});
-            axios.get("http://localhost:9003/test").then(resp => {console.log(resp.data)});
 
+methods: {
+
+    loginFunc: function(){
+            //console.log(this.username);
+            console.log('AAAAAAAAAAAAAAAAA');
+            console.log(this.user);
+            this.func().then(response => {
+                this.user = response.data;
+                if(response.data === "OK"){
+                    this.bol = true
+                }
+
+            });
+            //axios.get("http://localhost:9003/loginUser").then(resp => {this.user = resp.data; this.bol = true});
+            console.log(this.user);
+            //this.router.push('vms');
+            console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB');
 
         },
-
+    func: function(){
+        return axios.post("http://localhost:9003/login", {username: this.username, password : this.password});
+    }
 
         }
+
+
 })
