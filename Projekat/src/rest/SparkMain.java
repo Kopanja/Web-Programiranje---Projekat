@@ -71,11 +71,13 @@ public class SparkMain {
 			logInDto = g.fromJson(payload, LoggInDTO.class);
 			System.out.println(logInDto.getUsername());
 			User logedInUser = userRepo.loggin(logInDto);
-			System.out.println(logedInUser.getEmail());
+			
 			Session ss = req.session(true);
 			ss.attribute("user", logedInUser);	
-			System.out.println("LOGIN");
 			
+			if(ss.attribute("user")==null) {
+				return "Status 400";
+			}
 			//return g.toJson(logedInUser);
 			return "OK";
 			});
