@@ -8,6 +8,7 @@ const OrgItem = {template: '<org-item></org-item>'}
 const AddOrg = {template: '<add-org></add-org>'}
 const Users = {template: '<users></users>'}
 const AddUser = {template: '<add-user></add-user>'}
+const UserItem = {template: '<user-item></user-item>'}
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -21,6 +22,7 @@ const router = new VueRouter({
 		{path: '/add-org', component: AddOrg},
 		{path: '/users', component: Users},
 		{path: '/add-user', component: AddUser},
+		{path: '/user-item', component: UserItem},
 
 
 	  ]
