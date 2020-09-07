@@ -6,7 +6,7 @@ Vue.component("users", {
 	},
     template: `
 
-    <div>
+    <div v-if="users">
     <navbar></navbar>
     <table class="table">
   <thead class="thead-dark">
@@ -45,10 +45,10 @@ mounted(){
 
 },
 	methods: {
-        selectOrg: function(user){
+        selectUser: function(user){
             this.$root.$emit('sendingUser', user);
         },
-        deleteOrg: function(user){
+        deleteUser: function(user){
           console.log("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
           var path = "http://localhost:9003/users/delete/";
           console.log(path);

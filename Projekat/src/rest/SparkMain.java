@@ -1,6 +1,7 @@
 package rest;
 
 import static spark.Spark.get;
+import static spark.Spark.put;
 import static spark.Spark.delete;
 import static spark.Spark.port;
 import static spark.Spark.post;
@@ -114,6 +115,39 @@ public class SparkMain {
 		get("/vms", (req, res) -> {
 			res.type("application/json");
 			return g.toJson(vmRepo.getAllVMs(g));
+		});
+		put("/edit-profile", (req, res) -> {
+			res.type("application/json");
+			User logedInUser = getLoginUser(req);
+			
+			String payload = req.body();
+			
+			User user = g.fromJson(payload, User.class);
+			
+			boolean success = userRepo.updateProfile(logedInUser, user, g);
+			if(success) {
+				Session ss = req.session(true);
+				ss.attribute("user", user);
+				return "OK";
+			}else {
+				return "Status 400";
+			}
+			
+		});
+		
+		put("/edit-user", (req, res) -> {
+			res.type("application/json");
+			String payload = req.body();
+			
+			User user = g.fromJson(payload, User.class);
+			
+			boolean success = userRepo.updateUser(user, g);
+			if(success) {
+				return "OK";
+			}else {
+				return "Status 400";
+			}
+			
 		});
 
 		post("/vms/add", (req, res) -> {

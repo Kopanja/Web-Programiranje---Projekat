@@ -1,4 +1,4 @@
-Vue.component("user-item", {
+Vue.component("profile", {
     data: function () {
       return {
         user: null
@@ -15,7 +15,7 @@ Vue.component("user-item", {
 <h1>{{user.firstName + ' ' + user.lastName}}</h1>
 <hr class="nameline" />
 <h2><b>{{user.role}}</b></h2>
-<button type="button" class="btn btn-dark" v-on:click="editUser(user)" onclick="location.href = '#/edit-user';">Edit profile</button>
+<button type="button" class="btn btn-dark" v-on:click="editUser(user)" onclick="location.href = '#/edit-profile';">Edit profile</button>
 </div>
 
   <img class="img-thumbnail" src="app/users/img/profile_default.jpg" alt="profilepicture">
@@ -39,9 +39,7 @@ Vue.component("user-item", {
 </div>
   `	,
     mounted() {
-      this.$root.$on('sendingUser', (user) => {
-        this.user = user;
-      });
+      this.getLogedInUser().then(response => {this.user = response.data})
 
     },
     methods: {

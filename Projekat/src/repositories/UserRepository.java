@@ -62,4 +62,52 @@ public class UserRepository {
 		return loggedInUser;
 	}
 	
+	public boolean updateProfile(User oldUser, User newUser, Gson g) {
+		int counter = 0;
+		for(User user : this.users) {
+			if(user.getEmail().equals(oldUser.getEmail())) {
+				break;
+			}
+			counter++;
+		}
+		
+		try {
+			this.users.remove(counter);
+			this.users.add(newUser);
+			this.saveToFile(g);
+			return true;
+			
+		}catch(Exception e){
+			
+			return false;
+		}
+		
+	
+		
+	}
+	
+	public boolean updateUser(User newUser, Gson g) {
+		int counter = 0;
+		for(User user : this.users) {
+			if(user.getEmail().equals(newUser.getEmail())) {
+				break;
+			}
+			counter++;
+		}
+		
+		try {
+			this.users.remove(counter);
+			this.users.add(newUser);
+			this.saveToFile(g);
+			return true;
+			
+		}catch(Exception e){
+			
+			return false;
+		}
+		
+	
+		
+	}
+	
 }

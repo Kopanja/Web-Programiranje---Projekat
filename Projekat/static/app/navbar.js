@@ -27,7 +27,7 @@ Vue.component("navbar", {
       </ul>
       <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#/user-item" v-if="user">{{user.email}}</a>
+        <a class="nav-link" href="#/profile" v-if="user">{{user.email}}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#/" @click = "logOut">Logout</a>
