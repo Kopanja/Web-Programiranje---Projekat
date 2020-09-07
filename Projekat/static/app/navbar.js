@@ -6,7 +6,7 @@ Vue.component("navbar", {
   },
   template: `
 
-    <div>
+    <div v-if="user">
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@ Vue.component("navbar", {
         <li class="nav-item active">
           <a class="nav-link" href="#/vms">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="user.role === 'SUPER_ADMIN'">
           <a class="nav-link" href="#/orgs">Organizations</a>
         </li>
         <li class="nav-item">
@@ -40,12 +40,8 @@ Vue.component("navbar", {
 `	,
   mounted() {
 
-    console.log('AAAAAAAAAAAAAAAAA');
-    console.log(this.user);
-    //axios.post("http://localhost:9003/post", {username: this.username, password : this.password}).then(resp => {console.log(resp.data)});
     this.logIn().then(resp => {this.user = resp.data;});
 
-    console.log(this.user);
 
   },
   methods:{

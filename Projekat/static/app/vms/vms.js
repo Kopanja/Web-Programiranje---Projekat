@@ -1,7 +1,8 @@
 Vue.component("vms", {
 	data: function () {
 		    return {
-		      vms: null
+          vms: null,
+          logedInUser: null,
 		    }
 	},
     template: `
@@ -40,11 +41,15 @@ Vue.component("vms", {
 `	,
 mounted(){
 
-    console.log('AAAAAAAAAAAAAAAAA');
-    console.log(this.vms);
-    //axios.post("http://localhost:9003/post", {username: this.username, password : this.password}).then(resp => {console.log(resp.data)});
-    axios.get("http://localhost:9003/vms").then(resp => (this.vms = resp.data));
-    console.log(this.vms);
+  this.getLogIn().then(resp => {
+    this.logedInUser = resp.data;
+
+    if (this.logedInUser.role === "SUPER_ADMIN") {
+      this.getAllVms().then(resp => (this.vms = resp.data));
+    } else {
+      this.getVmsFromOrg().then(resp => (this.vms = resp.data));
+    }
+  })
 
 
 },
@@ -53,11 +58,19 @@ mounted(){
             this.$root.$emit('messageFromParent', vm);
         },
         deleteVm: function(vm){
-          console.log("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
           var path = "http://localhost:9003/vms/delete/";
           console.log(path);
           axios.delete(path.concat(vm.name)).then(resp => {console.log(resp.data)});
           axios.get("http://localhost:9003/vms").then(resp => (this.vms = resp.data));
+        },
+        getLogIn: function () {
+          return axios.get("http://localhost:9003/loginUser");
+        },
+        getAllVms: function () {
+          return axios.get("http://localhost:9003/vms");
+        },
+        getVmsFromOrg: function () {
+          return axios.get("http://localhost:9003/vmsFromOrg");
         }
 
 

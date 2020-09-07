@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import model.Disk;
 import model.Organisation;
+import model.User;
 import model.VM;
 
 public class OrgRepository {
@@ -65,4 +67,44 @@ public class OrgRepository {
 	    writer.close();
 	}
 	
+	public ArrayList<User> getUsersFromOrg(User user, Gson g){
+		try {
+			this.getAllOrgs(g);
+		} catch (IOException e) {
+			return null;
+		}
+		for(Organisation org : this.orgs) {
+			if(org.getName().equals(user.getOrganisation())) {
+				return org.getUsers();
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<VM> getVMsFromOrg(User user, Gson g){
+		try {
+			this.getAllOrgs(g);
+		} catch (IOException e) {
+			return null;
+		}
+		for(Organisation org : this.orgs) {
+			if(org.getName().equals(user.getOrganisation())) {
+				return org.getVms();
+			}
+		}
+		return null;
+	}
+	public ArrayList<Disk> getDisksFromOrg(User user, Gson g){
+		try {
+			this.getAllOrgs(g);
+		} catch (IOException e) {
+			return null;
+		}
+		for(Organisation org : this.orgs) {
+			if(org.getName().equals(user.getOrganisation())) {
+				return org.getDisks();
+			}
+		}
+		return null;
+	}
 }

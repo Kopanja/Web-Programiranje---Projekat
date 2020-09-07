@@ -1,10 +1,11 @@
 Vue.component("users", {
-	data: function () {
-		    return {
-		      users: null
-		    }
-	},
-    template: `
+  data: function () {
+    return {
+      users: null,
+      logedInUser: null,
+    }
+  },
+  template: `
 
     <div v-if="users">
     <navbar></navbar>
@@ -38,27 +39,45 @@ Vue.component("users", {
 
 </div>
 `	,
-mounted(){
+  mounted() {
 
-    axios.get("http://localhost:9003/users").then(resp => (this.users = resp.data));
+    this.getLogIn().then(resp => {
+      this.logedInUser = resp.data;
 
-
-},
-	methods: {
-        selectUser: function(user){
-            this.$root.$emit('sendingUser', user);
-        },
-        deleteUser: function(user){
-          console.log("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
-          var path = "http://localhost:9003/users/delete/";
-          console.log(path);
-          axios.delete(path.concat(user.name)).then(resp => {console.log(resp.data)});
-          axios.get("http://localhost:9003/users").then(resp => (this.users = resp.data));
-        }
+      if (this.logedInUser.role === "SUPER_ADMIN") {
+        this.getAllUsers().then(resp => (this.users = resp.data));
+      } else {
+        this.getUsersFromOrg().then(resp => (this.users = resp.data));
+      }
+    })
 
 
 
-        }
+  },
+  methods: {
+    selectUser: function (user) {
+      this.$root.$emit('sendingUser', user);
+    },
+    deleteUser: function (user) {
+      console.log("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
+      var path = "http://localhost:9003/users/delete/";
+      console.log(path);
+      axios.delete(path.concat(user.name)).then(resp => { console.log(resp.data) });
+      axios.get("http://localhost:9003/users").then(resp => (this.users = resp.data));
+    },
+    getLogIn: function () {
+      return axios.get("http://localhost:9003/loginUser");
+    },
+    getAllUsers: function () {
+      return axios.get("http://localhost:9003/users");
+    },
+    getUsersFromOrg: function () {
+      return axios.get("http://localhost:9003/usersFromOrg");
+    }
+
+
+
+  }
 
 
 })

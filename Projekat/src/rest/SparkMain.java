@@ -46,7 +46,6 @@ public class SparkMain {
 
 	public static void main(String[] args) throws IOException {
 
-
 		port(9003);
 
 		staticFiles.externalLocation(new File("./static").getCanonicalPath());
@@ -65,7 +64,7 @@ public class SparkMain {
 			LoggInDTO logInDto;
 			String payload = req.body();
 			logInDto = g.fromJson(payload, LoggInDTO.class);
-			
+
 			User logedInUser = userRepo.loggin(logInDto);
 
 			Session ss = req.session(true);
@@ -91,9 +90,9 @@ public class SparkMain {
 
 		get("/loginUser", (req, res) -> {
 			res.type("application/json");
-			
+
 			User user = getLoginUser(req);
-	
+
 			return g.toJson(getLoginUser(req));
 		});
 
@@ -119,35 +118,35 @@ public class SparkMain {
 		put("/edit-profile", (req, res) -> {
 			res.type("application/json");
 			User logedInUser = getLoginUser(req);
-			
+
 			String payload = req.body();
-			
+
 			User user = g.fromJson(payload, User.class);
-			
+
 			boolean success = userRepo.updateProfile(logedInUser, user, g);
-			if(success) {
+			if (success) {
 				Session ss = req.session(true);
 				ss.attribute("user", user);
 				return "OK";
-			}else {
+			} else {
 				return "Status 400";
 			}
-			
+
 		});
-		
+
 		put("/edit-user", (req, res) -> {
 			res.type("application/json");
 			String payload = req.body();
-			
+
 			User user = g.fromJson(payload, User.class);
-			
+
 			boolean success = userRepo.updateUser(user, g);
-			if(success) {
+			if (success) {
 				return "OK";
-			}else {
+			} else {
 				return "Status 400";
 			}
-			
+
 		});
 
 		post("/vms/add", (req, res) -> {
@@ -155,7 +154,7 @@ public class SparkMain {
 			VM newVm;
 			String payload = req.body();
 			newVm = g.fromJson(payload, VM.class);
-		
+
 			vmRepo.getVms().add(newVm);
 			vmRepo.saveToFile(g);
 			return ("OK");
@@ -180,16 +179,43 @@ public class SparkMain {
 			orgRepo.saveToFile(g);
 			return ("OK");
 		});
-		
+
 		post("/findDisksById", (req, res) -> {
-			System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
 			res.type("application/json");
 			ArrayList<String> diskIds;
 			String payload = req.body();
-			System.out.println(payload);
+
 			diskIds = g.fromJson(payload, ArrayList.class);
-			
+
 			ArrayList<Disk> disks = diskRepo.getDisksById(g, diskIds);
+			return g.toJson(disks);
+		});
+
+		get("/usersFromOrg", (req, res) -> {
+
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			ArrayList<User> users = orgRepo.getUsersFromOrg(user, g);
+			return g.toJson(users);
+		});
+
+		get("/vmsFromOrg", (req, res) -> {
+
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			ArrayList<VM> vms = orgRepo.getVMsFromOrg(user, g);
+			return g.toJson(vms);
+		});
+
+		get("/disksFromOrg", (req, res) -> {
+
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			ArrayList<Disk> disks = orgRepo.getDisksFromOrg(user, g);
 			return g.toJson(disks);
 		});
 
@@ -201,7 +227,7 @@ public class SparkMain {
 		});
 		delete("/orgs/delete/:name", (req, res) -> {
 			String name = req.params("name");
-			
+
 			orgRepo.deleteOrg(name);
 			orgRepo.saveToFile(g);
 			return ("OK");

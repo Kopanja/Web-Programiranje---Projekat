@@ -108,6 +108,17 @@ public class VM {
 		this.activities = activities;
 	}
 
+
+	public String getOrganisation() {
+		return organisation;
+	}
+
+
+	public void setOrganisation(String organisation) {
+		this.organisation = organisation;
+	}
+	
+
 	
 	
 	
