@@ -1,8 +1,10 @@
 package repositories;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -36,6 +38,12 @@ private ArrayList<Disk> disks;
 
 	public void setDisks(ArrayList<Disk> disks) {
 		this.disks = disks;
+	}
+	public void saveToFile(Gson g) throws IOException {
+	    BufferedWriter writer = new BufferedWriter(new FileWriter(".\\data\\disks.txt"));
+	    writer.write(g.toJson(this.disks));
+	     
+	    writer.close();
 	}
 	
 	

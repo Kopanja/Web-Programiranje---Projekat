@@ -2,8 +2,6 @@ Vue.component("org-item", {
     data: function () {
       return {
         org: null,
-        users: null,
-        vms: null
       }
     },
     template: `
@@ -47,7 +45,7 @@ Vue.component("org-item", {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(user, index) in users">
+      <tr v-for="(user, index) in org.users">
         <th scope="row">{{index + 1}}</th>
         <td>{{user.firstName + ' ' + user.lastName}}</td>
         <td>{{user.email}}</td>
@@ -66,7 +64,7 @@ Vue.component("org-item", {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(vm, index) in vms">
+      <tr v-for="(vm, index) in org.vms">
         <th scope="row">{{index + 1}}</th>
         <td>{{vm.name}}</td>
         <td>{{vm.catagory}}</td>
@@ -81,8 +79,7 @@ Vue.component("org-item", {
   `	,
     created() {
       this.$root.$on('sendingOrg', (org) => { this.org = org; });
-      axios.get("http://localhost:9003/users").then(resp => (this.users = resp.data));
-      axios.get("http://localhost:9003/vms").then(resp => (this.vms = resp.data));
+
 
     },
     methods: {
