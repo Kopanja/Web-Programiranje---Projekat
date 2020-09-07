@@ -87,6 +87,12 @@ public class SparkMain {
 			return g.toJson(userRepo.getAllUsers(g));
 		});
 		
+		get("/logOut", (req,res) -> {
+			Session ss = req.session(true);
+			ss.invalidate();
+			return "OK";
+		});
+		
 		get("/loginUser", (req,res) -> {
 			res.type("application/json");
 			System.out.println("Trazim ulogovanog usera");
