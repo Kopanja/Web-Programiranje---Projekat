@@ -14,7 +14,7 @@ Vue.component("vms", {
       <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Category</th>
-      <th scope="col">Num Of Cores</th>
+      <th scope="col">Organisation</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -24,7 +24,7 @@ Vue.component("vms", {
       <th scope="row">{{index + 1}}</th>
       <td>{{vm.name}}</td>
       <td>{{vm.catagory}}</td>
-      <td>{{vm.numOfCores}}</td>
+      <td>{{vm.organisation}}</td>
       <td><button type="button" class="btn btn-dark" v-on:click="selectVm(vm)" onclick="location.href = '#/vm-item';">More</button></td>
       <td><button type="button" class="btn btn-dark" v-on:click="deleteVm(vm)" onclick="location.href = '#/vms';">Delete</button></td>
     </tr>

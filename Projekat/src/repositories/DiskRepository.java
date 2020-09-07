@@ -31,6 +31,26 @@ private ArrayList<Disk> disks;
 		}.getType());
 		return disks;
 	}
+	
+	public ArrayList<Disk> getDisksById(Gson g, ArrayList<String> diskIds) throws IOException{
+		File file = new File(".\\data\\disks.txt");
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		
+		ArrayList<Disk> foundDisks = new ArrayList<Disk>();
+		
+		String stringData = br.readLine();
+		disks = g.fromJson(stringData, new TypeToken<ArrayList<Disk>>() {
+		}.getType());
+		
+		for(Disk disk : disks) {
+			for(String diskId : diskIds) {
+				if(disk.getName().equals(diskId)) {
+					foundDisks.add(disk);
+				}
+			}
+		}
+		return foundDisks;
+	}
 
 	public ArrayList<Disk> getDisks() {
 		return disks;

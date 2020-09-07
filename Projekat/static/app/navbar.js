@@ -27,7 +27,7 @@ Vue.component("navbar", {
       </ul>
       <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="#/user-item">{{user.email}}</a>
+        <a class="nav-link" href="#/user-item" v-if="user">{{user.email}}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#/" @click = "logOut">Logout</a>
@@ -43,7 +43,7 @@ Vue.component("navbar", {
     console.log('AAAAAAAAAAAAAAAAA');
     console.log(this.user);
     //axios.post("http://localhost:9003/post", {username: this.username, password : this.password}).then(resp => {console.log(resp.data)});
-    axios.get("http://localhost:9003/loginUser").then(resp => (this.user = resp.data));
+    this.logIn().then(resp => {this.user = resp.data;});
 
     console.log(this.user);
 
@@ -51,6 +51,9 @@ Vue.component("navbar", {
   methods:{
     logOut: function(){
       axios.get("http://localhost:9003/logOut");
+    },
+    logIn: function(){
+      return axios.get("http://localhost:9003/loginUser");
     }
   }
 

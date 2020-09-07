@@ -1,0 +1,67 @@
+.pozadina {
+  padding: 15px;
+  background-color:  #ececec;
+}
+
+h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3.9375rem;
+color: #222831;
+margin-bottom: 4px;
+}
+
+h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2555rem;
+  color: #30475e;
+  margin-left: 5px;
+}
+
+
+
+.picline {
+  border-style: solid;
+  width: 93%;
+  border-width: 1px;
+  border-color: #c9c9c9;
+  margin-top: 15px;
+  margin-right: 100px;
+}
+
+.tableline {
+  border-style: solid;
+  width: 87%;
+  border-width: 1px;
+  border-color: #c9c9c9;
+}
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 320px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+.w3-container {
+  padding-left: 80px;
+  padding-top: 20px;
+}
+
+.tabela {
+  padding: 0 0 10px 100px;
+}
+
+.list-group-horizontal-md {
+  padding: 10px 0 5px 0;
+}
+
+.list-group-item-secondary {
+  width: 200px;
+}
+
+.list-group-item-light {
+  width: 250px;
+}

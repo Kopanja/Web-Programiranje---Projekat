@@ -7,6 +7,7 @@ public class VM {
 
 	private String name;
 	private String catagory;
+	private String organisation;
 	private int numOfCores;
 	private int ram;
 	private int gpuCores;
@@ -28,10 +29,11 @@ public class VM {
 	}
 
 
-	public VM(String name, String catagory, int numOfCores, int ram, int gpuCores, ArrayList<String> disks) {
+	public VM(String name, String catagory, int numOfCores, int ram, int gpuCores, String org, ArrayList<String> disks) {
 		super();
 		this.name = name;
 		this.catagory = catagory;
+		this.organisation = org;
 		this.numOfCores = numOfCores;
 		this.ram = ram;
 		this.gpuCores = gpuCores;

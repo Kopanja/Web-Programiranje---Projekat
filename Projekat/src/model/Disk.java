@@ -7,6 +7,7 @@ public class Disk {
 	private String name;
 	private DiskType type;
 	private int capacity;
+	private String organisation;
 	private String vm;
 	
 	
@@ -22,17 +23,19 @@ public class Disk {
 		this.name = name;
 		this.type = type;
 		this.capacity = capacity;
+		
 	}
 
 
 
 
-	public Disk(String name, DiskType type, int capacity, String vm) {
+	public Disk(String name, DiskType type, int capacity, String vm, String org) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.capacity = capacity;
 		this.vm = vm;
+		this.organisation = org;
 	}
 
 
