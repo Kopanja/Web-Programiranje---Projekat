@@ -37,6 +37,9 @@ Vue.component("vms", {
 </table>
 
 <button type="button" class="btn btn-dark"  onclick="location.href = '#/add-vm';">Add New VM</button>
+</br>
+</br>
+</br>
     </div>
 
 

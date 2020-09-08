@@ -14,7 +14,7 @@ Vue.component("vm-item", {
     <h1>{{vm.name}}</h1>
     <hr class="nameline" />
     <h2><b>{{vm.organisation}}</b></h2>
-    <button type="button" class="btn btn-dark">Edit VM</button>
+    <button type="button" class="btn btn-dark" v-on:click="editVM(vm)" onclick="location.href = '#/edit-vm';">Edit VM</button>
     <hr class="picline">
   </div>
   </div>
@@ -92,6 +92,9 @@ Vue.component("vm-item", {
   methods: {
     getDisksById: function(){
       return axios.post("http://localhost:9003/findDisksById", this.vm.disks);
+    },
+    editVM: function(vm){
+      this.$root.$emit('sendingVMProfile', vm);
     }
 
   }

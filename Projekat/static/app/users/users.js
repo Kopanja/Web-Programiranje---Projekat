@@ -36,6 +36,9 @@ Vue.component("users", {
 </table>
 
 <button type="button" class="btn btn-dark"  onclick="location.href = '#/add-user';">Add New USER</button>
+</br>
+</br>
+</br>
     </div>
 
 

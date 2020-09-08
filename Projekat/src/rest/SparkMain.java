@@ -215,6 +215,17 @@ public class SparkMain {
 			ArrayList<Disk> disks = diskRepo.getDisksById(g, diskIds);
 			return g.toJson(disks);
 		});
+		
+		post("/findVMById", (req, res) -> {
+
+			res.type("application/json");
+			String vmId;
+			String payload = req.body();
+			vmId = g.fromJson(payload, String.class);
+
+			VM vm = vmRepo.findVMById(vmId,g);
+			return g.toJson(vm);
+		});
 
 		get("/usersFromOrg", (req, res) -> {
 
@@ -224,6 +235,7 @@ public class SparkMain {
 			ArrayList<User> users = orgRepo.getUsersFromOrg(user, g);
 			return g.toJson(users);
 		});
+		
 
 		get("/vmsFromOrg", (req, res) -> {
 

@@ -14,6 +14,9 @@ Vue.component("navbar", {
         <li class="nav-item active">
           <a class="nav-link" href="#/vms">VMs <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="#/disks">Disks<span class="sr-only">(current)</span></a>
+        </li>
         <li class="nav-item active" v-if="user.role === 'SUPER_ADMIN'">
           <a class="nav-link" href="#/orgs">Organizations</a>
         </li>

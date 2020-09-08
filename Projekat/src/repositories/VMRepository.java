@@ -95,5 +95,19 @@ public class VMRepository {
 		
 	}
 	
+	public VM findVMById(String id, Gson g) {
+		try {
+			this.getAllVMs(g);
+		} catch (IOException e) {
+			return null;
+		}
+		for(VM vm : this.vms) {
+			if(vm.getName().equals(id)) {
+				return vm;
+			}
+		}
+		return null;
+	}
+	
 	
 }

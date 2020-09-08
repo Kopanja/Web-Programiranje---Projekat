@@ -35,6 +35,9 @@ Vue.component("orgs", {
 </table>
 
 <button type="button" class="btn btn-dark"  onclick="location.href = '#/add-org';">Add New ORG</button>
+</br>
+</br>
+</br>
     </div>
 
 
