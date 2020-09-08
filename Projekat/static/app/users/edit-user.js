@@ -53,7 +53,7 @@ Vue.component("edit-user", {
      <strong>Role is changed to {{user.role}}</strong>.
     </div>
     <div v-if = "isChangeSuccess" class="alert alert-success">
-     <strong>Success!</strong> To continue <a href="#/vms" class="alert-link">click here</a>.
+     <strong>Success!</strong> To continue <a href="#/users" class="alert-link">click here</a>.
     </div>
      <div v-if = "isChangeFail" class="alert alert-danger">
      <strong>Edit Failed!</strong> Something went wrong.

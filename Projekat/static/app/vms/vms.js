@@ -7,7 +7,7 @@ Vue.component("vms", {
 	},
     template: `
 
-    <div>
+    <div v-if="logedInUser">
     <navbar></navbar>
     </br>
     <h3 class="align-left">Virtual Machines</h3>
@@ -67,7 +67,12 @@ mounted(){
           var path = "http://localhost:9003/vms/delete/";
           console.log(path);
           axios.delete(path.concat(vm.name)).then(resp => {console.log(resp.data)});
-          axios.get("http://localhost:9003/vms").then(resp => (this.vms = resp.data));
+          if(this.logedInUser.role==='SUPER_ADMIN'){
+            axios.get("http://localhost:9003/vms").then(resp => (this.vms = resp.data));
+          }else{
+            this.getVmsFromOrg().then(resp => (this.vms = resp.data));
+          }
+
         },
         getLogIn: function () {
           return axios.get("http://localhost:9003/loginUser");

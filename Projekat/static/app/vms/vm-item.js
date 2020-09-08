@@ -2,11 +2,12 @@ Vue.component("vm-item", {
   data: function () {
     return {
       vm: null,
-      disks: null
+      disks: null,
+      user: null
     }
   },
   template: `
-<div v-if = "vm">
+<div v-if = "vm && user">
 <navbar></navbar>
   <div class="pozadina align-left">
 <div class="w3-container">
@@ -14,7 +15,7 @@ Vue.component("vm-item", {
     <h1>{{vm.name}}</h1>
     <hr class="nameline" />
     <h2><b>{{vm.organisation}}</b></h2>
-    <button type="button" class="btn btn-dark" v-on:click="editVM(vm)" onclick="location.href = '#/edit-vm';">Edit VM</button>
+    <button type="button" v-if="user.role!=='USER'" class="btn btn-dark" v-on:click="editVM(vm)" onclick="location.href = '#/edit-vm';">Edit VM</button>
     <hr class="picline">
   </div>
   </div>
@@ -84,7 +85,9 @@ Vue.component("vm-item", {
     this.$root.$on('messageFromParent', (vm) => {
       this.vm = vm;
       //this.disks = this.vm.disks
-      this.getDisksById().then(resp => {this.disks = resp.data})
+      this.getDisksById().then(resp => {this.disks = resp.data});
+      this.logIn().then(resp => {this.user = resp.data;});
+
     });
 
   },
@@ -95,7 +98,10 @@ Vue.component("vm-item", {
     },
     editVM: function(vm){
       this.$root.$emit('sendingVMProfile', vm);
-    }
+    },
+    logIn: function(){
+      return axios.get("http://localhost:9003/loginUser");
+    },
 
   }
 

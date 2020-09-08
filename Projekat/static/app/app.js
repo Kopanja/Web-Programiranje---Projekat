@@ -1,6 +1,7 @@
 const Login = {template: '<login></login>'}
 const Vms = {template: '<vms></vms>'}
 const Disks = {template: '<disks></disks>'}
+const Categories = {template: '<categories></categories>'}
 const Profile = {template: '<profile></profile>'}
 const VmItem = {template: '<vm-item></vm-item>'}
 const AddVM = {template: '<add-vm></add-vm>'}
@@ -35,6 +36,7 @@ const router = new VueRouter({
 		{path: '/edit-vm', component: EditVM},
 		{path: '/disks', component: Disks},
 		{path: '/disk-item', component: DiskItem},
+		{path: '/cats', component: Categories},
 
 
 	  ]

@@ -163,4 +163,65 @@ public class OrgRepository {
 		
 	
 	}
+	public boolean addVMToOrg(VM vm, String orgId, Gson g) {
+		try {
+			this.getAllOrgs(g);
+		} catch (IOException e) {
+			return false;
+		}
+		
+		for(Organisation org : this.orgs) {
+			if(org.getName().equals(orgId)) {
+				if(org.getVms() != null) {
+					org.getVms().add(vm);
+				}else {
+					org.setVms(new ArrayList<VM>());
+					org.getVms().add(vm);
+				}
+				
+			}
+		}
+		
+		try {
+			this.saveToFile(g);
+			return true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return false;
+		}
+		
+	
+	}
+	public Organisation findOrgById(String id, Gson g) {
+		try {
+			this.getAllOrgs(g);
+		} catch (IOException e) {
+			return null;
+		}
+		for(Organisation org : this.orgs) {
+			if(org.getName().equals(id)) {
+				return org;
+			}
+		}
+		return null;
+	}
+	public boolean deleteVMFromOrg(String name) {
+		for(Organisation org : this.orgs) {
+			int counter = 0;
+			int index = 0;
+			
+			for(VM vm : org.getVms()) {
+				
+				if(vm.getName().equals(name)) {
+					index = counter;
+					//this.vms.remove(vm);
+				}
+				counter++;
+			}
+			org.getVms().remove(index);
+			
+		}
+			
+		return true;
+	}
 }

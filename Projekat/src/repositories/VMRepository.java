@@ -47,12 +47,7 @@ public class VMRepository {
 		int index = 0;
 		
 		for(VM vm : this.vms) {
-			System.out.println("------------------------");
-			System.out.println("Vm name: " + vm.getName());
-			System.out.println("name: " + name);
-			System.out.println("index: " + index);
-			System.out.println("Counter: " + counter);
-			System.out.println("------------------------");
+			
 			if(vm.getName().equals(name)) {
 				index = counter;
 				//this.vms.remove(vm);
@@ -60,7 +55,7 @@ public class VMRepository {
 			counter++;
 		}
 		this.vms.remove(index);
-		System.out.println("promena");
+		
 	}
 	
 	public void saveToFile(Gson g) throws IOException {

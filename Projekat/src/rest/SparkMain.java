@@ -26,6 +26,7 @@ import model.OrgEditDTO;
 import model.Organisation;
 import model.User;
 import model.VM;
+import model.VMCatagory;
 import repositories.DiskRepository;
 import repositories.OrgRepository;
 import repositories.UserRepository;
@@ -180,6 +181,7 @@ public class SparkMain {
 			newVm = g.fromJson(payload, VM.class);
 
 			vmRepo.getVms().add(newVm);
+			orgRepo.addVMToOrg(newVm,newVm.getOrganisation(), g);
 			vmRepo.saveToFile(g);
 			return ("OK");
 		});
@@ -217,6 +219,18 @@ public class SparkMain {
 			return g.toJson(disks);
 		});
 		
+		post("/findOrgById", (req, res) -> {
+
+			res.type("application/json");
+			
+			String payload = req.body();
+
+			String orgIds = g.fromJson(payload, String.class);
+
+			Organisation org = orgRepo.findOrgById(orgIds, g);
+			return g.toJson(org);
+		});
+		
 		post("/findVMById", (req, res) -> {
 
 			res.type("application/json");
@@ -226,6 +240,17 @@ public class SparkMain {
 
 			VM vm = vmRepo.findVMById(vmId,g);
 			return g.toJson(vm);
+		});
+		
+		post("/findCatById", (req, res) -> {
+
+			res.type("application/json");
+			String catId;
+			String payload = req.body();
+			catId = g.fromJson(payload, String.class);
+
+			VMCatagory cat = catRepo.findCatById(catId,g);
+			return g.toJson(cat);
 		});
 
 		get("/usersFromOrg", (req, res) -> {
@@ -260,6 +285,8 @@ public class SparkMain {
 			String name = req.params("name");
 			vmRepo.deleteVm(name);
 			vmRepo.saveToFile(g);
+			orgRepo.deleteVMFromOrg(name);
+			orgRepo.saveToFile(g);
 			return ("OK");
 		});
 		delete("/orgs/delete/:name", (req, res) -> {

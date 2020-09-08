@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import model.VM;
 import model.VMCatagory;
 
 
@@ -36,6 +37,20 @@ public class VMCategoryRepository {
 
 	public void setCategories(ArrayList<VMCatagory> categories) {
 		this.categories = categories;
+	}
+	
+	public VMCatagory findCatById(String id, Gson g) {
+		try {
+			this.getAllCategories(g);
+		} catch (IOException e) {
+			return null;
+		}
+		for(VMCatagory cat: this.categories) {
+			if(cat.getName().equals(id)) {
+				return cat;
+			}
+		}
+		return null;
 	}
 	
 	

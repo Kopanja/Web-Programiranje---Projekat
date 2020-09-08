@@ -41,13 +41,14 @@ private ArrayList<Disk> disks;
 		String stringData = br.readLine();
 		disks = g.fromJson(stringData, new TypeToken<ArrayList<Disk>>() {
 		}.getType());
-		
+		if(disks != null && diskIds !=null) {
 		for(Disk disk : disks) {
 			for(String diskId : diskIds) {
 				if(disk.getName().equals(diskId)) {
 					foundDisks.add(disk);
 				}
 			}
+		}
 		}
 		return foundDisks;
 	}

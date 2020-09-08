@@ -2,6 +2,7 @@ Vue.component("org-item", {
     data: function () {
       return {
         org: null,
+        user: null,
       }
     },
     template: `
@@ -12,11 +13,11 @@ Vue.component("org-item", {
 
 
 
-    <div class="naslov">
+    <div class="naslov" v-if="user">
       <h1>{{org.name}}</h1>
       <hr class="nameline" />
       <h2><b>{{org.description}}</b></h2>
-      <button type="button" class="btn btn-dark" v-on:click="editOrg(org)" onclick="location.href = '#/edit-org';">Edit organization</button>
+      <button type="button" class="btn btn-dark" v-if="user.role!=='USER'" v-on:click="editOrg(org)" onclick="location.href = '#/edit-org';">Edit organization</button>
     </div>
 
     <img class="img-thumbnail" src="app/orgs/img/default_img.jpg" alt="profilepicture">
@@ -59,8 +60,8 @@ Vue.component("org-item", {
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">User</th>
-        <th scope="col">Email</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
       </tr>
     </thead>
     <tbody>
@@ -79,13 +80,17 @@ Vue.component("org-item", {
   `	,
     created() {
       this.$root.$on('sendingOrg', (org) => { this.org = org; });
+      this.logIn().then(resp => {this.user = resp.data;});
 
 
     },
     methods: {
       editOrg: function(org){
         this.$root.$emit('sendingOrgProfile', org);
-      }
+      },
+      logIn: function(){
+        return axios.get("http://localhost:9003/loginUser");
+      },
 
     }
 

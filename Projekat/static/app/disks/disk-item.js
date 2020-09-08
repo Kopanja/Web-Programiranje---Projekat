@@ -6,7 +6,7 @@ Vue.component("disk-item", {
       }
     },
     template: `
-    <div class="pozadina align-left" v-if="disk">
+    <div class="pozadina align-left" v-if="disk && vm">
     <h1>{{disk.name}}</h1>
     <h2><b>{{disk.organisation}}</b></h2>
     <hr class="picline">

@@ -8,12 +8,13 @@ Vue.component("add-user", {
           isEmailOK: true,
           isAddOK: true,
           password1: '',
-          password2: ''
+          password2: '',
+          logedInUser: null,
 		    }
 	},
     template: `
 
-    <div class="pozadina align-left">
+    <div class="pozadina align-left" v-if="logedInUser">
     <navbar></navbar>
     <h1>Add User</h1>
     <hr class="picline">
@@ -36,6 +37,9 @@ Vue.component("add-user", {
         <div class="col">
         <label><b>Last Name:</b></label>
           <input type="text" class="form-control form-control-lg" v-model="user.lastName"  placeholder ="Last Name">
+        </div>
+        <div class="col" v-if="logedInUser.role==='ADMIN'">
+        <label><b>Organisation: {{logedInUser.organisation}}</b></label>
         </div>
       </div>
     </form>
@@ -61,7 +65,7 @@ Vue.component("add-user", {
           Passwords don't match!
         </div>
       </div>
-      <div class="form-group">
+      <div class="form-group" v-if="logedInUser.role==='SUPER_ADMIN'">
       <label for="exampleFormControlSelect1"><b>Choose ORG:</b></label>
       <select v-model="user.organisation" class="form-control" id="exampleFormControlSelect1">
         <option v-for="org in orgs">{{org.name}}</option>
@@ -74,7 +78,7 @@ Vue.component("add-user", {
         <option>USER</option>
       </select>
     </div>
-     <button type="button" v-on:click="addUser" class="btn btn-dark">Add User</button>
+     <button type="button" v-on:click="addUser" onclick="location.href = '#/users';" class="btn btn-dark">Add User</button>
 
     </form>
      <div v-if = "isAddFail" class="alert alert-danger">
@@ -85,6 +89,7 @@ Vue.component("add-user", {
 
   mounted(){
     axios.get("http://localhost:9003/orgs").then(resp => (this.orgs = resp.data));
+    this.logIn().then(resp => {this.logedInUser = resp.data;});
   },
 	methods: {
     axiosCall: function(){
@@ -112,6 +117,9 @@ Vue.component("add-user", {
 
       console.log(this.user);
       if(this.isAddOK){
+        if(this.logedInUser.role==="ADMIN"){
+          this.user.organisation = this.logedInUser.organisation;
+        }
           this.axiosCall().then(response => {
               if(response.data === "OK"){
 
@@ -125,6 +133,9 @@ Vue.component("add-user", {
   validateEmail: function(email) {
       const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(email).toLowerCase());
+  },
+  logIn: function(){
+    return axios.get("http://localhost:9003/loginUser");
   },
 
         }

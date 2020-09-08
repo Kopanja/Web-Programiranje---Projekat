@@ -1,7 +1,8 @@
 Vue.component("navbar", {
   data: function () {
     return {
-      user: null
+      user: null,
+      org: null
     }
   },
   template: `
@@ -20,8 +21,14 @@ Vue.component("navbar", {
         <li class="nav-item active" v-if="user.role === 'SUPER_ADMIN'">
           <a class="nav-link" href="#/orgs">Organizations</a>
         </li>
+        <li class="nav-item active" v-if="user.role !== 'SUPER_ADMIN'">
+          <a class="nav-link" href="#/org-item" v-on:click = "sendOrg(user.organisation)">{{user.organisation}}</a>
+        </li>
         <li class="nav-item active">
         <a class="nav-link" href="#/users">Users</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#/cats">Categories</a>
       </li>
       </ul>
       <ul class="navbar-nav navbar-right">
@@ -49,6 +56,12 @@ Vue.component("navbar", {
     },
     logIn: function(){
       return axios.get("http://localhost:9003/loginUser");
+    },
+    sendOrg: function(orgId){
+      axios.post("http://localhost:9003/findOrgById", orgId).then(resp => {
+        this.org = resp.data;
+        this.$root.$emit('sendingOrg', this.org);
+      })
     }
   }
 

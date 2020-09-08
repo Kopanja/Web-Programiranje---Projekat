@@ -1,7 +1,8 @@
 Vue.component("user-item", {
     data: function () {
       return {
-        user: null
+        user: null,
+        logedInUser: null
       }
     },
     template: `
@@ -11,11 +12,11 @@ Vue.component("user-item", {
 
 
 
-<div class="naslov">
+<div class="naslov" v-if="logedInUser">
 <h1>{{user.firstName + ' ' + user.lastName}}</h1>
 <hr class="nameline" />
 <h2><b>{{user.role}}</b></h2>
-<button type="button" class="btn btn-dark" v-on:click="editUser(user)" onclick="location.href = '#/edit-user';">Edit profile</button>
+<button type="button" v-if="logedInUser.role!=='USER'" class="btn btn-dark" v-on:click="editUser(user)" onclick="location.href = '#/edit-user';">Edit profile</button>
 </div>
 
   <img class="img-thumbnail" src="app/users/img/profile_default.jpg" alt="profilepicture">
@@ -42,6 +43,7 @@ Vue.component("user-item", {
       this.$root.$on('sendingUser', (user) => {
         this.user = user;
       });
+      this.logIn().then(resp => {this.logedInUser = resp.data;});
 
     },
     methods: {
@@ -50,7 +52,10 @@ Vue.component("user-item", {
       },
       editUser: function(user){
         this.$root.$emit('sendingUserProfile', user);
-      }
+      },
+      logIn: function(){
+        return axios.get("http://localhost:9003/loginUser");
+      },
 
     }
 
