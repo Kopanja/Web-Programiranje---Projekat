@@ -9,6 +9,8 @@ Vue.component("users", {
 
     <div v-if="users">
     <navbar></navbar>
+    </br>
+    <h3 class="align-left">Users</h3>
     <table class="table">
   <thead class="thead-dark">
     <tr>

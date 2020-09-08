@@ -6,17 +6,17 @@ Vue.component("org-item", {
     },
     template: `
 
-<div class = "align-left">
+<div class = "align-left" v-if="org">
 <navbar></navbar>
 
 
 
 
     <div class="naslov">
-      <h1 v-model="org.name">{{org.name}}</h1>
+      <h1>{{org.name}}</h1>
       <hr class="nameline" />
-      <h2 v-model="org.description"><b>{{org.description}}</b></h2>
-      <button type="button" class="btn btn-dark">Edit organization</button>
+      <h2><b>{{org.description}}</b></h2>
+      <button type="button" class="btn btn-dark" v-on:click="editOrg(org)" onclick="location.href = '#/edit-org';">Edit organization</button>
     </div>
 
     <img class="img-thumbnail" src="app/orgs/img/default_img.jpg" alt="profilepicture">
@@ -83,7 +83,9 @@ Vue.component("org-item", {
 
     },
     methods: {
-
+      editOrg: function(org){
+        this.$root.$emit('sendingOrgProfile', org);
+      }
 
     }
 

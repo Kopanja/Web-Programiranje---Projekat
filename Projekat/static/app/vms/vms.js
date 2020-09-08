@@ -9,6 +9,9 @@ Vue.component("vms", {
 
     <div>
     <navbar></navbar>
+    </br>
+    <h3 class="align-left">Virtual Machines</h3>
+
     <table class="table">
   <thead class="thead-dark">
     <tr>

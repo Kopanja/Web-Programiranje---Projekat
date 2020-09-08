@@ -107,4 +107,30 @@ public class OrgRepository {
 		}
 		return null;
 	}
+	
+	public boolean updateOrg(Organisation newOrg, String oldName, Gson g) {
+		try {
+			this.getAllOrgs(g);
+		} catch (IOException e) {
+			return false;
+		}
+		int counter = 0;
+		for(Organisation  org : this.orgs) {
+			if(org.getName().equals(oldName)) {
+				break;
+			}
+			counter++;
+		}
+		
+		try {
+			this.orgs.remove(counter);
+			this.orgs.add(newOrg);
+			this.saveToFile(g);
+			return true;
+			
+		}catch(Exception e){
+			
+			return false;
+		}
+}
 }

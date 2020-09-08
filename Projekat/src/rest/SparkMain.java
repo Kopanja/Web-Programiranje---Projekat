@@ -22,6 +22,7 @@ import enums.DiskType;
 import enums.Role;
 import model.Disk;
 import model.LoggInDTO;
+import model.OrgEditDTO;
 import model.Organisation;
 import model.User;
 import model.VM;
@@ -142,6 +143,29 @@ public class SparkMain {
 
 			boolean success = userRepo.updateUser(user, g);
 			if (success) {
+				return "OK";
+			} else {
+				return "Status 400";
+			}
+
+		});
+		
+		put("/edit-org", (req, res) -> {
+			res.type("application/json");
+			String payload = req.body();
+
+			OrgEditDTO orgDTO = g.fromJson(payload, OrgEditDTO.class);
+
+			boolean success = orgRepo.updateOrg(orgDTO.getOrg(), orgDTO.getOldName(), g);
+			boolean othersSuccess = true;
+			if(orgDTO.isNameChanged()) {
+				boolean userSuccess = userRepo.updateOrgNameInUsers(orgDTO.getOldName(), orgDTO.getOrg().getName(), g);
+				boolean vmsSuccess = vmRepo.updateOrgNameInVMs(orgDTO.getOldName(), orgDTO.getOrg().getName(), g);
+				boolean diskSuccess = diskRepo.updateOrgNameInDisks(orgDTO.getOldName(), orgDTO.getOrg().getName(), g);
+				othersSuccess = userSuccess && vmsSuccess && diskSuccess;
+			}
+			
+			if (success && othersSuccess) {
 				return "OK";
 			} else {
 				return "Status 400";

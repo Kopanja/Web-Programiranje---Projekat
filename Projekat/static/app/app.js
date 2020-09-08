@@ -11,6 +11,7 @@ const AddUser = {template: '<add-user></add-user>'}
 const UserItem = {template: '<user-item></user-item>'}
 const EditUser = {template: '<edit-user></edit-user>'}
 const EditProfile = {template: '<edit-profile></edit-profile>'}
+const EditOrg = {template: '<edit-org></edit-org>'}
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
@@ -27,6 +28,7 @@ const router = new VueRouter({
 		{path: '/user-item', component: UserItem},
 		{path: '/edit-user', component: EditUser},
 		{path: '/edit-profile', component: EditProfile},
+		{path: '/edit-org', component: EditOrg},
 
 
 	  ]

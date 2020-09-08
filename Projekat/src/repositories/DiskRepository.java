@@ -66,5 +66,30 @@ private ArrayList<Disk> disks;
 	    writer.close();
 	}
 	
+	public boolean updateOrgNameInDisks(String oldName, String newName, Gson g) {
+		try {
+			this.getAllDisks(g);
+		} catch (IOException e) {
+			return false;
+		}
+	
+		for(int i = 0; i < this.disks.size(); i++) {
+			if(this.disks.get(i).getOrganisation().equals(oldName)) {
+				this.disks.get(i).setOrganisation(newName);
+			}
+			
+		}
+		
+		try {
+			this.saveToFile(g);
+			return true;
+			
+		}catch(Exception e){
+			
+			return false;
+		}
+		
+	}
+	
 	
 }

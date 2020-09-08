@@ -8,6 +8,8 @@ Vue.component("orgs", {
 
     <div>
     <navbar></navbar>
+    </br>
+    <h3 class="align-left">Organisations</h3>
     <table class="table">
   <thead class="thead-dark">
     <tr>

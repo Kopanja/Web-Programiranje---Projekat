@@ -77,6 +77,20 @@ public class Disk {
 	public void setVm(String vm) {
 		this.vm = vm;
 	}
+
+
+
+
+	public String getOrganisation() {
+		return organisation;
+	}
+
+
+
+
+	public void setOrganisation(String organisation) {
+		this.organisation = organisation;
+	}
 	
 	
 	

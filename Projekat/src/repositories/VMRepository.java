@@ -70,5 +70,30 @@ public class VMRepository {
 	    writer.close();
 	}
 	
+	public boolean updateOrgNameInVMs(String oldName, String newName, Gson g) {
+		try {
+			this.getAllVMs(g);
+		} catch (IOException e) {
+			return false;
+		}
+	
+		for(int i = 0; i < this.vms.size(); i++) {
+			if(this.vms.get(i).getOrganisation().equals(oldName)) {
+				this.vms.get(i).setOrganisation(newName);
+			}
+			
+		}
+		
+		try {
+			this.saveToFile(g);
+			return true;
+			
+		}catch(Exception e){
+			
+			return false;
+		}
+		
+	}
+	
 	
 }
