@@ -190,6 +190,7 @@ public class SparkMain {
 			String payload = req.body();
 			user = g.fromJson(payload, User.class);
 			userRepo.getUsers().add(user);
+			orgRepo.addUserToOrg(user, user.getOrganisation(), g);
 			userRepo.saveToFile(g);
 			return ("OK");
 		});
